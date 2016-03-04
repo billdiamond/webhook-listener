@@ -23,13 +23,33 @@ def display_intro():
     print message
 
 
+def display_html(request):
+    """
+    Helper method to display message in HTML format.
 
-def displayHTML(request):
+    :param request: HTTP request from flask
+    :type  request: werkzeug.local.LocalProxy
+    :returns message in HTML format
+    :rtype basestring
+    """
+    url_root = request.url_root
     if ngrok:
-        return 'Webhook server online! Go to <a href="https://bitbucket.com">Bitbucket</a> to configure your repository webhook for <a href="http://%s.ngrok.io/webhook">http://%s.ngrok.io/webhook</a> <br />\
-            You can access ngrok\'s web interface via <a href="http://localhost:4040">http://localhost:4040</a>' % (ngrok,ngrok)
+        return "".join([
+            """Webhook server online! Go to """,
+            """<a href="https://bitbucket.com">Bitbucket</a>""",
+            """ to configure your repository webhook for """,
+            """<a href="http://%s.ngrok.io/webhook">""" % ngrok,
+            """http://%s.ngrok.io/webhook</a> <br />""" % ngrok,
+            """You can access ngrok's web interface via """,
+            """<a href="http://localhost:4040">http://localhost:4040</a>"""
+        ])
     else:
-        return 'Webhook server online! Go to <a href="https://bitbucket.com">Bitbucket</a> to configure your repository webhook for <a href="%s/webhook">%s/webhook</a>' % (request.url_root,request.url_root)
+        return "".join([
+            """Webhook server online! """,
+            """Go to <a href="https://bitbucket.com">Bitbucket</a>""",
+            """ to configure your repository webhook for """,
+            """<a href="%s/webhook">%s/webhook</a>""" % (url_root, url_root)
+        ])
 
 @app.route('/', methods=['GET'])
 def index():  
