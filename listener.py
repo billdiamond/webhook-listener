@@ -1,9 +1,9 @@
-import os
 """Listener module."""
 from sys import platform as _platform
+from os import environ
 
-from flask import Flask  
-from flask import request  
+from pync import Notifier
+from flask import Flask, request
 app = Flask(__name__)
 
 # check for ngrok subdomain
