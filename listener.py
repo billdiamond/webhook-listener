@@ -7,9 +7,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 # check for ngrok subdomain
-ngrok = ''
-if 'NGROK_SUBDOMAIN' in os.environ:
-    ngrok = os.environ['NGROK_SUBDOMAIN']
+ngrok = environ.get("NGROK_SUBDOMAIN", "")
 
 def displayIntro():
     if ngrok:
