@@ -9,12 +9,20 @@ app = Flask(__name__)
 # check for ngrok subdomain
 ngrok = environ.get("NGROK_SUBDOMAIN", "")
 
-def displayIntro():
+
+def display_intro():
+    """Helper method to display introduction message."""
     if ngrok:
-        print 'You can access this webhook publicly via at http://%s.ngrok.io/webhook\
-        You can access ngrok\'s web interface via http://localhost:4040' % ngrok
+        message = "".join([
+            "You can access this webhook publicly via at ",
+            "http://%s.ngrok.io/webhook. \n" % ngrok,
+            "You can access ngrok's web interface via http://localhost:4040"
+        ])
     else:
-        print 'Webhook server online! Go to http://localhost:5000'
+        message = "Webhook server online! Go to http://localhost:5000"
+    print message
+
+
 
 def displayHTML(request):
     if ngrok:
