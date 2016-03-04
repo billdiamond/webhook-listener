@@ -51,13 +51,16 @@ def display_html(request):
             """<a href="%s/webhook">%s/webhook</a>""" % (url_root, url_root)
         ])
 
-@app.route('/', methods=['GET'])
-def index():  
-    return displayHTML(request)
 
-@app.route('/webhook', methods=['GET', 'POST'])
-def tracking():  
-    if request.method == 'POST':
+@app.route("/", methods=["GET"])
+def index():
+    """Endpoint for the root of the Flask app."""
+    return display_html(request)
+
+
+@app.route("/webhook", methods=["GET", "POST"])
+def tracking():
+    """Endpoint for receiving webhook from bitbucket."""
         data = request.get_json()
         commit_author = data['actor']['username']
         commit_hash = data['push']['changes'][0]['new']['target']['hash'][:7]
