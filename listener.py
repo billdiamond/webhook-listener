@@ -1,4 +1,5 @@
 import os
+"""Listener module."""
 from sys import platform as _platform
 
 from flask import Flask  
